@@ -11,11 +11,6 @@
       clone: yes
       force: yes
 
-  - name: Check if docker is running
-    service:
-      name: docker
-      state: started
-
   - name: Executando o Docker Compose
     shell: "docker-compose up -d"
     args:
