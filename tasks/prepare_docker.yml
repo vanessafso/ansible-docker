@@ -3,9 +3,6 @@
   hosts: localhost
  
   tasks:
-  - name: Setting user
-    shell: "usermod -aG docker cloud-user"
-
   - name: fazendo o git pull
     git:
       repo: "https://github.com/concrete-cristian-trucco/wordpress-mysql-compose.git"
