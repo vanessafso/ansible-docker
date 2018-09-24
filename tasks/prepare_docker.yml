@@ -1,0 +1,32 @@
+---
+- name: Hello World!
+  hosts: localhost
+ 
+  tasks:
+  - name: Hello World!
+    shell: echo "Hi! Tower is working."
+  
+  - name: Create user Cloud-User
+    user:
+      name: "cloud-user"
+
+  - name: Setting user
+    shell: "usermod -aG docker cloud-user"
+
+  - name: fazendo o git pull
+    git:
+      repo: "https://github.com/concrete-cristian-trucco/wordpress-mysql-compose.git"
+      dest: "/tmp/wordpress-mysql-compose"
+      version: master
+      clone: yes
+      force: yes
+
+  - name: Check if docker is running
+    service:
+      name: docker
+      state: started
+
+  - name: Executando o Docker Compose
+    shell: "docker-compose up -d"
+    args:
+      chdir: /tmp/wordpress-mysql-compose
