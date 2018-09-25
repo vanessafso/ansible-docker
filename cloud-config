@@ -1,0 +1,16 @@
+#cloud-config
+bootcmd:
+  - yum -y install epel-release
+  - yum -y install git python-pip ansible docker
+runcmd:
+# Para o Python pegar a ultima versão de seus principais pacotes é necessario fazer a reinstalação dos pacotes 
+# a baixo.. Somente  "yum upgrade python*" não funciona
+  - [ sh, -c, "pip uninstall urllib3 requests -y"]
+  - [ sh, -c, "pip install --upgrade pip"]
+  - [ sh, -c, "pip install docker-compose"]
+  - [ sh, -c, "yum remove python-urllib3 python-requests -y"]
+  - [ sh, -c, "yum install python-urllib3 python-requests -y"]
+  - [ sh, -c, "pip install requests urllib3 pyOpenSSL docker-compose enum34 --force --upgrade"]
+  - [ sh, -c, "git clone https://bitbucket.org/vanessafso/ansible-docker.git /etc/ansible/roles/ansible-docker" ]
+  - [ sh, -c, "systemctl start docker"]
+  - [ sh, -c, "ansible-playbook -i /etc/ansible/hosts /etc/ansible/roles/ansible-docker/tasks/prepare_docker.yml"]
