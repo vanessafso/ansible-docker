@@ -4,5 +4,4 @@ bootcmd:
   - yum -y install git ansible docker
 runcmd:
   - [ sh, -c, "git clone https://bitbucket.org/vanessafso/ansible-docker.git /etc/ansible/roles/ansible-docker" ]
-  - [ sh, -c, "systemctl start docker"]
   - [ sh, -c, "ansible-playbook -i /etc/ansible/hosts /etc/ansible/roles/ansible-docker/tasks/prepare_docker.yml"]
