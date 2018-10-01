@@ -1,8 +1,14 @@
 ---
 - name: Prepare Docker!
   hosts: localhost
- 
+
   tasks:
+  - name: Intalação Docker Compose
+    command: "curl -L https://github.com/docker/compose/releases/download/1.23.0-rc1/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose"
+
+  - name: Check Permissoes
+    command: chmod +x /usr/local/bin/docker-compose
+
   - name: fazendo o git pull
     git:
       repo: "https://github.com/concrete-cristian-trucco/wordpress-mysql-compose.git"
@@ -11,7 +17,11 @@
       clone: yes
       force: yes
 
+  - name: Iniciando o Docker
+    command: systemctl start docker
+
   - name: Executando o Docker Compose
     shell: "docker-compose up -d"
     args:
       chdir: /tmp/wordpress-mysql-compose
+
