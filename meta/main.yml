@@ -1,7 +1,7 @@
 galaxy_info:
   author: Vanessa Souza
   description: Essential setup for Centos
-  company: Algar Telecom
+  company: Company Name
   license: MIT
   min_ansible_version: 1.2
   platforms:
